@@ -4,7 +4,10 @@ import requests
 import streamlit as st
 
 # Point at local FastAPI by default; override via env var for deployment.
-API_URL = os.environ.get("AGENT_API_URL", "http://127.0.0.1:8000")
+try:
+    API_URL = st.secrets["AGENT_API_URL"]
+except Exception:
+    API_URL = os.environ.get("AGENT_API_URL", "http://127.0.0.1:8000")
 
 st.set_page_config(page_title="Agentic SQL Analyst", page_icon="🧮", layout="wide")
 
